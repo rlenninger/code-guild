@@ -25,6 +25,7 @@ paint_needed = surface_area / PAINT_AREA
 # print(paint_needed)
 paint_needed = coats * paint_needed
 total_cost = paint_needed * cost
-
-# output
+# used round() to round total cost to nearest x.oo 
+total_cost = round(total_cost, 2)
+# output, issues with remainders and decimals look up "maths." functions
 print('Your total cost to paint will be, $') + str(float(total_cost))
