@@ -35,5 +35,5 @@ print('Your change will be, ' +
     str(int(ones)) + ' ones ' +
     str(int(quarters)) + ' quarters, ' +
     str(int(dimes)) + ' dimes, ' +
-      str(int(nickels)) + ' nickels, and ' +
-       str(int(pennies)) + ' pennies.')
+    str(int(nickels)) + ' nickels, and ' +
+    str(int(pennies)) + ' pennies.')
