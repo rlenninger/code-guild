@@ -12,5 +12,5 @@ pennies = left % 5
 print('Your change will be, ' +
     str(quarters) + ' quarters, ' +
     str(dimes) + ' dimes, ' +
-      str(nickels) + ' nickels, and ' +
-       str(pennies) + ' pennies.')
+    str(nickels) + ' nickels, and ' +
+    str(pennies) + ' pennies.')
