@@ -1,11 +1,10 @@
 """
 Gives black jack advice.
 """
-
 # setup
-
-# input, get card and assign values
 print('Hi! I am a bot that can give you blackjack advice.')
+
+# input, get cards and assign values
 print('What is your first card? ')
 card_one = str(input())
 
