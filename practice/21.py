@@ -14,6 +14,12 @@ card_two = str(input())
 # assign values
 if card_one == 'a':
     card_one = 1
+elif card_one == 'ace':
+    card_one = 1
+elif card_one == 'A':
+    card_one = 1
+elif card_one == 'Ace':
+    card_one = 1
 elif card_one == '2':
     card_one = 2
 elif card_one == '3':
@@ -34,12 +40,24 @@ elif card_one == '10':
     card_one = 10
 elif card_one == 'j':
     card_one = 10
+elif card_one == "J":
+    card_one = 10
 elif card_one == 'q':
+    card_one = 10
+elif card_one == 'Q':
     card_one = 10
 elif card_one == 'k':
     card_one = 10
+elif card_one == 'K':
+    card_one = 10
 # card_two values get assigned
 if card_two == 'a':
+    card_two = 1
+elif card_two == 'A':
+    card_two = 1
+elif card_two == 'ace':
+    card_two = 1
+elif card_two == 'Ace':
     card_two = 1
 elif card_two == '2':
     card_two = 2
@@ -61,9 +79,15 @@ elif card_two == '10':
     card_two = 10
 elif card_two == 'j':
     card_two = 10
+elif card_two == 'J':
+    card_two = 10
 elif card_two == 'q':
     card_two = 10
+elif card_two == 'Q':
+    card_two = 10
 elif card_two == 'k':
+    card_two = 10
+elif card_two == 'K':
     card_two = 10
 
 # transform, add values together
