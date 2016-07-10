@@ -94,11 +94,20 @@ elif card_two == 'K':
 hand_value = card_one + card_two
 # factor for a being 1 or 11
 if card_one == 1:
-    if hand_value >= 10:
+    if hand_value < 10:
+        hand_value = hand_value + 10
+    elif hand_value == 10:
+        hand_value = hand_value + 10
+    elif hand_value == 11:
         hand_value = hand_value + 10
 if card_two == 1:
-    if hand_value >= 10:
+    if hand_value < 10:
         hand_value = hand_value + 10
+    elif hand_value == 10:
+        hand_value = hand_value + 10
+    elif hand_value == 11:
+        hand_value = hand_value + 10
+
 # output
 print('Your hand value is ' + str(hand_value))
 if hand_value == 21:
