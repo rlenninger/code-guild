@@ -2,108 +2,44 @@
 Gives black jack advice.
 """
 # setup
+FACE_CARDS = ['j', 'q', 'k']
 print('Hi! I am a bot that can give you blackjack advice.')
 
 # input, get cards and assign values
 print('What is your first card? ')
-card_one = str(input())
+card_one = input()
 
 print('What is your second card? ')
-card_two = str(input())
+card_two = input()
 # assign values
-if card_one == 'a':
-    card_one = 1
-elif card_one == 'ace':
-    card_one = 1
-elif card_one == 'A':
-    card_one = 1
-elif card_one == 'Ace':
-    card_one = 1
-elif card_one == '2':
-    card_one = 2
-elif card_one == '3':
-    card_one = 3
-elif card_one == '4':
-    card_one = 4
-elif card_one == '5':
-    card_one = 5
-elif card_one == '6':
-    card_one = 6
-elif card_one == '7':
-    card_one = 7
-elif card_one == '8':
-    card_one = 8
-elif card_one == '9':
-    card_one = 9
-elif card_one == '10':
-    card_one = 10
-elif card_one == 'j':
-    card_one = 10
-elif card_one == "J":
-    card_one = 10
-elif card_one == 'q':
-    card_one = 10
-elif card_one == 'Q':
-    card_one = 10
-elif card_one == 'k':
-    card_one = 10
-elif card_one == 'K':
-    card_one = 10
-# card_two values get assigned
-if card_two == 'a':
-    card_two = 1
-elif card_two == 'A':
-    card_two = 1
-elif card_two == 'ace':
-    card_two = 1
-elif card_two == 'Ace':
-    card_two = 1
-elif card_two == '2':
-    card_two = 2
-elif card_two == '3':
-    card_two = 3
-elif card_two == '4':
-    card_two = 4
-elif card_two == '5':
-    card_two = 5
-elif card_two == '6':
-    card_two = 6
-elif card_two == '7':
-    card_two = 7
-elif card_two == '8':
-    card_two = 8
-elif card_two == '9':
-    card_two = 9
-elif card_two == '10':
-    card_two = 10
-elif card_two == 'j':
-    card_two = 10
-elif card_two == 'J':
-    card_two = 10
-elif card_two == 'q':
-    card_two = 10
-elif card_two == 'Q':
-    card_two = 10
-elif card_two == 'k':
-    card_two = 10
-elif card_two == 'K':
-    card_two = 10
+if card_one in FACE_CARDS:
+    card_one_value = 10
+elif card_one == 'a':
+    card_one_value = 1
+else:
+    card_one_value = int(card_one)
+
+if card_two in FACE_CARDS:
+    card_two_value = 10
+elif card_two == 'a':
+    card_two_value = 1
+else:
+    card_two_value = int(card_two)
 
 # transform, add values together
-hand_value = card_one + card_two
+hand_value = card_one_value + card_two_value
 # factor for a being 1 or 11
-if card_one == 1:
-    if hand_value < 10:
+if card_one_value == 1:
+    if hand_value <= 10:
         hand_value = hand_value + 10
-    elif hand_value == 10:
-        hand_value = hand_value + 10
+
     elif hand_value == 11:
         hand_value = hand_value + 10
-if card_two == 1:
-    if hand_value < 10:
+
+if card_two_value == 1:
+    if hand_value <= 10:
         hand_value = hand_value + 10
-    elif hand_value == 10:
-        hand_value = hand_value + 10
+
     elif hand_value == 11:
         hand_value = hand_value + 10
 
