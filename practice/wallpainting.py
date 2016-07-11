@@ -23,7 +23,7 @@ while another_wall == 'y':
     print('How many coats of paint?')
     coats = float(input())
 # math, calculates surface area that needs to be covered
-# & uses total_area as a running tally
+# & uses total_area_of_all_rooms as a running tally
     surface_area = wall_width * wall_height
     surface_area_plus_coats = surface_area * coats
     total_area_of_all_rooms = total_area_of_all_rooms + surface_area_plus_coats
