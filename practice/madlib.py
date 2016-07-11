@@ -14,7 +14,7 @@ noun_two = str(input())
 print('The ' + str(noun) + ' jumped over the ' + str(adj)
     + ' ' + str(noun_two) + '.')
 # setup
-print('That was fun! Lets try anouther.')
+print('That was fun! Lets try another.')
 
 # input adjectives 2 - 9
 adj_two = input('Adjective: ')
