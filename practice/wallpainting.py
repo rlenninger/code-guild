@@ -4,7 +4,7 @@ Asks user for height, width, cost of paint and how many coats.
 Allows for multiple rooms.
 """
 
-# setup, starting varibles to call the loop
+# setup, starting variables to call the loop
 PAINT_AREA = 400
 another_wall = 'y'
 total_area_of_all_rooms = 0
@@ -33,9 +33,8 @@ while another_wall == 'y':
 
 # transform, final math figures amount of paint needed
 paint_needed = total_area_of_all_rooms / PAINT_AREA
-# print('Paint needed') + (paint_needed)
 total_cost = paint_needed * cost
-# used round() to round total cost to x.oo
+# used round() to round total cost to $X.xx
 total_cost_rounded = round(total_cost, 2)
 # output
 print('You will need to purchise ' + str(paint_needed) + ' gallons of paint.')
