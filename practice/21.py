@@ -30,17 +30,11 @@ else:
 hand_value = card_one_value + card_two_value
 # factor for a being 1 or 11
 if card_one_value == 1:
-    if hand_value <= 10:
-        hand_value = hand_value + 10
-
-    elif hand_value == 11:
+    if hand_value <= 11:
         hand_value = hand_value + 10
 
 if card_two_value == 1:
-    if hand_value <= 10:
-        hand_value = hand_value + 10
-
-    elif hand_value == 11:
+    if hand_value <= 11:
         hand_value = hand_value + 10
 
 # output
