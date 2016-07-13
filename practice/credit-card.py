@@ -1,6 +1,6 @@
 """Program checks to see if a credit card number is valid."""
-# get a credit card number
 
+# 1. Define
 def get_cc_number():
     """Asks user for a CC number."""
     user_cc_num = input('Please enter a credit card number to check. ')
@@ -9,16 +9,16 @@ def get_cc_number():
 
 # math credit card number
 def get_check_digit(user_cc_num):
-    """"This generates the check digit
+    """"Returns the last digit from the cc number to check against
     >>> get_check_digit('12')
     '2'
     """
     return user_cc_num[-1]
 
 def get_validation_digit(user_cc_num):
-    """Retrives the validation digit.
+    """Generates a validation number from the cc number to check
     >>> get_validation_digit('4556737586899855')
-    5
+    '5'
     """
     # 1. slice off last digit
     shortened_validation_digit = user_cc_num[:-1]
@@ -40,7 +40,7 @@ def get_validation_digit(user_cc_num):
     return str(sum_values % 10)
 
 def str_to_ints_in_list(str_list):
-    """Converts strings to ints in the list.
+    """Converts a list of str type expressions into a list of int type expressions
     >>> str_to_ints_in_list(['1', '2', '3'])
     [1, 2, 3]
     """
@@ -48,24 +48,16 @@ def str_to_ints_in_list(str_list):
     return int_list
 
 def multiply_even_index_ints(int_list):
-    # Fix so to multiple odd in index rather than odd numbers
-    """Fix so to multiple odd in index rather than odd numbers.
+    """Multiplies the even indexed numbers in a llist by 2, returns result in list
     >>> multiply_even_index_ints([1, 2, 3])
     [2, 2, 6]
     """
     return [x if i % 2 == 1 else x * 2 for i, x in enumerate(int_list)]
     # [x * 2 for i, x in enumerate(int_list) if is_odd(i)]
 
-def is_odd(number):
-    """More math for validation check.
-    >>> is_odd(3)
-    True
-    """
-    return (number % 2 == 1)
-
 
 def subtracting_large_ints(int_list):
-    """More math for validation check.
+    """Subtracts 9 from any numbers larger than 9 in a list
     >>> subtracting_large_ints([10, 2, 6])
     [1, 2, 6]
     """
@@ -73,21 +65,19 @@ def subtracting_large_ints(int_list):
 
 
 def reverse_digit_list(digits):
-    """Reverese digits for validation check.
-
-    >>> reverse_digit_list("12345678")
+    """Reverses a string, outputs as list
+    >>> reverse_digit_list('12345678')
     ['8', '7', '6', '5', '4', '3', '2', '1']
     """
     reversed_value = reversed(digits)
     return list(reversed_value)
 
-def check_validation(check_digit, validation_digit):
-    """Looks to see if check digit is equal to validation digit.
-    >>> check_validation(1, 1(
-    'Valid!'
-    )
+def compare_values(first_value, second_value):
+    """Checks on whether two values are equal, returns a boolean value
+    >>> compare_values(1, 1)
+    True
     """
-    if check_digit == validation_digit:
+    if first_value == second_value:
         is_valid = True
     else:
         is_valid = False
@@ -101,15 +91,18 @@ def generate_validation_statement(is_card_valid_bool):
         output_statement = 'Invalid!'
     return output_statement
 
-# tell us if the CC is valid
+# 2. Main
 
 def main():
     """Runs the program."""
     cc_num = get_cc_number()
     check_digit = get_check_digit(cc_num)
     validation_digit = get_validation_digit(cc_num)
-    validitation_value = check_validation(check_digit, validation_digit)
-    output_statement = generate_validation_statement(validitation_value)
+    are_digits_equal = compare_values(check_digit, validation_digit)
+    output_statement = generate_validation_statement(are_digits_equal)
     print(output_statement)
-    return output_statement
-main()
+
+if __name__ == '__main__':
+    main()
+
+# 3. Output
