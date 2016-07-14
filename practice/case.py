@@ -15,6 +15,8 @@ def get_user_word():
 
 def check_word_case(word_to_change):
     """Checks if word_to_change needs to be converted to snake or camel case.
+    >>> check_word_case('snake_case')
+    'SnakeCase'
      """
     if word_to_change.islower() == True: # convert to camel
         final_output = convert_to_camel(word_to_change)
@@ -27,6 +29,8 @@ def check_word_case(word_to_change):
 
 def convert_to_camel(snake_to_camel_word):
     """converts a word form snake_case to CamelCase
+    >>> convert_to_camel('snake_case')
+    'SnakeCase'
     """
     snake_split = snake_to_camel_word.split('_')
     snake_split = [element.capitalize() for element in snake_split]
@@ -37,6 +41,8 @@ def convert_to_camel(snake_to_camel_word):
 
 def convert_to_snake(camel_to_snake):
     """converts a word from CamelCase to snake_case.
+    >>> convert_to_snake('CamelCase')
+    'camel_case'
     """
     camel_split = re.findall('[A-Z][a-z]*', camel_to_snake)
     camel_split = [element.lower() for element in camel_split]
@@ -49,5 +55,5 @@ def main():
     print(check_for_case)
 
 if __name__ == '__main__':
-main()
+    main()
 
