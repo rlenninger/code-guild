@@ -50,10 +50,6 @@ def most_rain(d): # gives result for day with the most rain, still need to make 
     z = max(zip(d.values(), d.keys()))
     return z
 
-# Finds the common keys
-# def dict_yearly_totals(d):
-
-
 
 def wet_year(d): # seperates the dict into lists and averages baseed on year, 2002 - 2016
 
@@ -89,10 +85,43 @@ def wet_year(d): # seperates the dict into lists and averages baseed on year, 20
     yr02 = [value for key, value in d.items() if key.endswith('02')]
     yr02 = sum(yr02)
 
-    winning_year = [yr15, yr16, yr14, yr13, yr12, yr11, yr10, yr09, yr08, yr07, yr06, yr05, yr04, yr03, yr02]
+    winning_year = max([yr15, yr16, yr14, yr13, yr12, yr11, yr10, yr09, yr08, yr07, yr06, yr05, yr04, yr03, yr02])
 
-    print(winning_year)
-    return winning_year # need to generate a if, elif statement to return a print of winning year
+    if winning_year == yr16:
+        winning_year_str = '2016 had ' + str(yr16)
+    elif winning_year == yr15:
+        winning_year_str = '2015 had ' + str(yr15)
+    elif winning_year == yr14:
+        winning_year_str = '2014 had ' + str(yr14)
+    elif winning_year == yr13:
+        winning_year_str = '2013 had ' + str(yr13)
+    elif winning_year == yr12:
+        winning_year_str = '2012 had ' + str(yr12)
+    elif winning_year == yr11:
+        winning_year_str = '2011 had ' + str(yr11)
+    elif winning_year == yr10:
+        winning_year_str = '2010 had ' + str(yr10)
+    elif winning_year == yr09:
+        winning_year_str = '2009 had ' + str(yr09)
+    elif winning_year == yr08:
+        winning_year_str = '2008 had ' + str(yr08)
+    elif winning_year == yr07:
+        winning_year_str = '2007 had ' + str(yr07)
+    elif winning_year == yr06:
+        winning_year_str = '2006 had ' + str(yr06)
+    elif winning_year == yr05:
+        winning_year_str = '2005 had ' + str(yr05)
+    elif winning_year == yr04:
+        winning_year_str = '2004 had ' + str(yr04)
+    elif winning_year == yr03:
+        winning_year_str = '2003 had ' + str(yr03)
+    elif winning_year == yr02:
+        winning_year_str = '2002 had ' + str(yr02)
+
+
+
+
+    return winning_year_str + ' inches of rain. Wow! Thats a lot of rain!'
 
 
 # output: prints out a the returns from transform
@@ -105,13 +134,13 @@ def main():
     lines_split = split_lines(lines)
     final_list = remove_junk(lines_split)
     dict_to_check = dict_dates(final_list)
-    # rainy_day = most_rain(dict_to_check)
-    # day_with_most_rain = 'The day that had the most rain was: ' + str(rainy_day)
+    rainy_day = most_rain(dict_to_check)
+    day_with_most_rain = 'The day that had the most rain was: ' + str(rainy_day)
     rainy_year = wet_year(dict_to_check)
 
+    print(day_with_most_rain)
     print(rainy_year)
 
 
 if __name__ == '__main__':
     main()
-main()
