@@ -2,57 +2,56 @@
 year with most rain.
 """
 # setup:
-import statistics
-
-
-
-# input: reads the text file
+filename = 'sunnyside.txt'
 
 
 def each_line_of_file(filename):
-    with open('sunnyside.txt', newline='') as f:
+    """Opens sunnyside.txt and reads it line by line."""
+    with open(filename, newline='') as f:
         lines = f.readlines()
-        lines = [lines.replace('-', '0') for lines in lines]
-    return lines
 
-# print(each_line_of_file('sunnysideeez.txt'))
+    return lines
 
 
 def split_lines(lines):
+    """Strips and splits the lines into lists."""
     listed_lines = [x.strip().split('\n') for x in lines]
     listed_lines_reduced = listed_lines[11:-1]
     line_list = []
     for listed_lines_split in listed_lines_reduced:
-        line_list += [y.split() for y in listed_lines_split] # everything to here works properly
+        line_list += [y.split() for y in listed_lines_split]
 
     return line_list
 
 
-# reduce list of lists down to only items in position 0 and 1
-
 def remove_junk(line_list):
-    usable_list = []
+    """Cleans up the list and sets daily rain amount to an int."""
+    temp_list = []
     for z in line_list:
-        usable_list += [z[0:2]]
+        temp_list += [z[0:2]]
+    temp_list2 = []
+    for date, rain in temp_list:
+        if rain != '-':
+            int_rain = int(rain)
+            temp_list2 += [[date, int_rain]]
+    return temp_list2
 
-    return usable_list    # everything works to this point
 
-
-# create dict of {date:rainfall}
-
-
-def dict_dates(y): # creates the dict and converts the value to an int
+def dict_dates(y):
+    """Creates a dict from the list."""
     d = {key: value for (key, value) in y}
     d = {str(k): int(v) for k, v in d.items()}
     return d
 
-def most_rain(d): # gives result for day with the most rain, still need to make it look pretty
-    z = max(zip(d.values(), d.keys()))
-    return z
+
+def most_rain(d):
+    """Returns the key for max of dict daily totals."""
+    day_with_most_rain = max(d, key=d.get)
+    return day_with_most_rain
 
 
-def wet_year(d): # seperates the dict into lists and averages baseed on year, 2002 - 2016
-
+def wet_year(d):
+    """Converts dict into lists of yearly rain fall totals & finds the year with most rainfall."""
 
     yr16 = [value for key, value in d.items() if key.endswith('16')]
     yr16 = sum(yr16)
@@ -117,30 +116,28 @@ def wet_year(d): # seperates the dict into lists and averages baseed on year, 20
         winning_year_str = '2003 had ' + str(yr03)
     elif winning_year == yr02:
         winning_year_str = '2002 had ' + str(yr02)
+    return winning_year_str
 
 
+def output(day_with_most_rain, winning_year_str):
+    """Combines output strings for program."""
+    output_one = 'The date that had the most rain was: ' + str(day_with_most_rain)
+    output_two = str(winning_year_str) + ' inches of rain. Wow! That is a lot of rain!'
+    output_three = str(output_one) + '\n' + output_two
+    return output_three
 
 
-    return winning_year_str + ' inches of rain. Wow! Thats a lot of rain!'
-
-
-# output: prints out a the returns from transform
-#
-#
 def main():
-    filename = 'sunnyside.txt'
-
+    """Handler to run the program."""
     lines = each_line_of_file(filename)
     lines_split = split_lines(lines)
     final_list = remove_junk(lines_split)
     dict_to_check = dict_dates(final_list)
     rainy_day = most_rain(dict_to_check)
-    day_with_most_rain = 'The day that had the most rain was: ' + str(rainy_day)
     rainy_year = wet_year(dict_to_check)
-
-    print(day_with_most_rain)
-    print(rainy_year)
-
+    final_output = output(rainy_day, rainy_year)
+    print(final_output)
+    return final_output
 
 if __name__ == '__main__':
     main()
