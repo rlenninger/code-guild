@@ -3,18 +3,32 @@
 # setup
 VOWELS = ['a', 'e', 'i', 'o', 'u']
 
-# input
-word_to_translate = input('Please give me a word to translate into pig latin: ')
-word_to_translate_lower = word_to_translate.lower()
-word_to_translate_list = word_to_translate_lower.strip()
+def word_to_translate_from_user():
+    """Asks user for a word, converts to lower case, removes puncuation.
+    """
+    word_to_translate = input('Please give me a word to translate into pig latin: ')
+    word_to_translate_lower = word_to_translate.lower()
+    word_to_translate_strip = word_to_translate_lower.strip('.?!')
+    return word_to_translate_strip
 
-# transform
+def pig_latin_translator(word_to_translate_strip):
+    """Takes return from, word_to_translate_from_user and
+    translates to pig latin.
+    """
+    if word_to_translate_strip[0] in VOWELS:
+        translated_word = word_to_translate_strip + 'yay'
+    else:
+        translated_word = word_to_translate_strip[1:] + word_to_translate_strip[0] + 'ay'
+    return translated_word
 
-if word_to_translate_list[0] in VOWELS:
-    translated_word = '' .join(word_to_translate_list) + 'yay'
+def main():
+    """Runs word_to_translate_from_user function, passes to
+    pig_latin_translator and prints output.
+    """
+    given_word = word_to_translate_from_user()
+    output_text = pig_latin_translator(given_word)
+    output = output_text
+    print('The pig latin version will be: ' + output)
+    return output
 
-else:
-    translated_word = '' .join(word_to_translate_list[1:]) + '' .join(word_to_translate_list[0]) + 'ay'
-
-# output
-print('The pig latin version will be: ' + translated_word)
+main()
