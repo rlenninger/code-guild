@@ -1,4 +1,4 @@
-"""Takes data from rain guage at sunnyside and prints a summary of the data: date with the most rain &
+"""Takes data from rain gauge at Sunnyside and prints a summary of the data: date with the most rain &
 year with most rain.
 """
 # setup:
@@ -49,105 +49,39 @@ def most_rain(d):
     day_with_most_rain = max(d, key=d.get)
     return day_with_most_rain
 
-def year_with_most_rain(temp_list2):
+
+def create_year_list(temp_list2):
+    """Slices the list of dates into years"""
     temp_list3 = []
     for date, rain in temp_list2:
         date_sliced = date[-4:]
         temp_list3 += [[date_sliced, rain]]
-    print(temp_list3)
+    return temp_list3
 
+
+def create_year_dict(temp_list3):
+    """Creates a dict from year list and sums rain value."""
     yearly_totals = {}
     for date_sliced, rain in temp_list3:
         if date_sliced not in yearly_totals:
             yearly_totals[date_sliced] = []
-
         yearly_totals[date_sliced] += [rain]
-        total_by_year = max(yearly_totals, key=yearly_totals.get)
+        total_by_year = dict(zip(yearly_totals.keys(), [[sum(item)] for item in yearly_totals.values()]))
     return total_by_year
 
 
-# getting all dict of year, but no rain data, why?
+def get_max_year(total_by_year):
+    """Returns year with max amount of rain."""
+    total_by_year_max = max(total_by_year, key=total_by_year.get)
+    return total_by_year_max
 
 
-
-
-
-
-
-# def wet_year(d):
-#     """Converts dict into lists of yearly rain fall totals & finds the year with most rainfall."""
-#
-#     yr16 = [value for key, value in d.items() if key.endswith('16')]
-#     yr16 = sum(yr16)
-#     yr15 = [value for key, value in d.items() if key.endswith('15')]
-#     yr15 = sum(yr15)
-#     yr14 = [value for key, value in d.items() if key.endswith('14')]
-#     yr14 = sum(yr14)
-#     yr13 = [value for key, value in d.items() if key.endswith('13')]
-#     yr13 = sum(yr13)
-#     yr12 = [value for key, value in d.items() if key.endswith('12')]
-#     yr12 = sum(yr12)
-#     yr11 = [value for key, value in d.items() if key.endswith('11')]
-#     yr11 = sum(yr11)
-#     yr10 = [value for key, value in d.items() if key.endswith('10')]
-#     yr10 = sum(yr10)
-#     yr09 = [value for key, value in d.items() if key.endswith('09')]
-#     yr09 = sum(yr09)
-#     yr08 = [value for key, value in d.items() if key.endswith('08')]
-#     yr08 = sum(yr08)
-#     yr07 = [value for key, value in d.items() if key.endswith('07')]
-#     yr07 = sum(yr07)
-#     yr06 = [value for key, value in d.items() if key.endswith('06')]
-#     yr06 = sum(yr06)
-#     yr05 = [value for key, value in d.items() if key.endswith('05')]
-#     yr05 = sum(yr05)
-#     yr04 = [value for key, value in d.items() if key.endswith('04')]
-#     yr04 = sum(yr04)
-#     yr03 = [value for key, value in d.items() if key.endswith('03')]
-#     yr03 = sum(yr03)
-#     yr02 = [value for key, value in d.items() if key.endswith('02')]
-#     yr02 = sum(yr02)
-#
-#     winning_year = max([yr15, yr16, yr14, yr13, yr12, yr11, yr10, yr09, yr08, yr07, yr06, yr05, yr04, yr03, yr02])
-#
-#     if winning_year == yr16:
-#         winning_year_str = '2016 had ' + str(yr16)
-#     elif winning_year == yr15:
-#         winning_year_str = '2015 had ' + str(yr15)
-#     elif winning_year == yr14:
-#         winning_year_str = '2014 had ' + str(yr14)
-#     elif winning_year == yr13:
-#         winning_year_str = '2013 had ' + str(yr13)
-#     elif winning_year == yr12:
-#         winning_year_str = '2012 had ' + str(yr12)
-#     elif winning_year == yr11:
-#         winning_year_str = '2011 had ' + str(yr11)
-#     elif winning_year == yr10:
-#         winning_year_str = '2010 had ' + str(yr10)
-#     elif winning_year == yr09:
-#         winning_year_str = '2009 had ' + str(yr09)
-#     elif winning_year == yr08:
-#         winning_year_str = '2008 had ' + str(yr08)
-#     elif winning_year == yr07:
-#         winning_year_str = '2007 had ' + str(yr07)
-#     elif winning_year == yr06:
-#         winning_year_str = '2006 had ' + str(yr06)
-#     elif winning_year == yr05:
-#         winning_year_str = '2005 had ' + str(yr05)
-#     elif winning_year == yr04:
-#         winning_year_str = '2004 had ' + str(yr04)
-#     elif winning_year == yr03:
-#         winning_year_str = '2003 had ' + str(yr03)
-#     elif winning_year == yr02:
-#         winning_year_str = '2002 had ' + str(yr02)
-#     return winning_year_str
-
-
-def output(day_with_most_rain, winning_year_str):
+def output(day_with_most_rain, total_by_year_max):
     """Combines output strings for program."""
     output_one = 'The date that had the most rain was: ' + str(day_with_most_rain)
-    output_two = str(winning_year_str) + ' inches of rain. Wow! That is more then any other year in the sample.'
+    output_two = str(total_by_year_max) + ' was the wettest year from this data sample.'
     output_three = str(output_one) + '\n' + output_two
+    print(output_three)
     return output_three
 
 
@@ -158,11 +92,10 @@ def main():
     final_list = remove_junk(lines_split)
     dict_to_check = dict_dates(final_list)
     rainy_day = most_rain(dict_to_check)
-
-    year_of_rain = year_with_most_rain(final_list)
-    # rainy_year = wet_year(dict_to_check)
-    # final_output = output(rainy_day, rainy_year)
-    print(final_output)
+    wet_year_list = create_year_list(final_list)
+    year_dict = create_year_dict(wet_year_list)
+    max_year = get_max_year(year_dict)
+    final_output = output(rainy_day, max_year)
     return final_output
 
 if __name__ == '__main__':
