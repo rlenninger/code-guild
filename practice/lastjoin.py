@@ -14,7 +14,7 @@ elif count == 2:
     word_string = ' and '.join(word_list)
 
 else:
-    word_string = ', '.join(word_list[0:-1])
+    word_string = ', '.join(word_list[:-1])
     word_string = word_string + ', and ' + word_list[-1]
 
 # output
