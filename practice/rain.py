@@ -57,16 +57,16 @@ def year_with_most_rain(temp_list2):
     print(temp_list3)
 
     yearly_totals = {}
-    for year in temp_list3:
-        if rain['year'] not in yearly_totals:
-            yearly_totals[rain['year']] = []
+    for date_sliced, rain in temp_list3:
+        if date_sliced not in yearly_totals:
+            yearly_totals[date_sliced] = []
 
-        yearly_totals[rain['author']] += [rain]
+        yearly_totals[date_sliced] += [rain]
+        total_by_year = max(yearly_totals, key=yearly_totals.get)
+    return total_by_year
 
-    return yearly_totals
 
-
-
+# getting all dict of year, but no rain data, why?
 
 
 
