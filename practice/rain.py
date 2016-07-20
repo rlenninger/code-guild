@@ -14,7 +14,11 @@ def each_line_of_file(filename):
 
 
 def split_lines(lines):
-    """Strips and splits the lines into lists."""
+    r"""Strips and splits the lines into lists.
+
+    >>> split_lines(['1 \n', '2\n', '3\n', '4\n', '5\n', '6 \n', '7 \n', '8 \n', '9 \n', '10 \n', '11 \n', 'PARTY! \n', 'TIME!'])
+    [['PARTY!']]
+    """
     listed_lines = [x.strip().split('\n') for x in lines]
     listed_lines_reduced = listed_lines[11:-1]
     line_list = []
