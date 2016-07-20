@@ -25,7 +25,11 @@ def split_lines(lines):
 
 
 def remove_junk(line_list):
-    """Cleans up the list and sets daily rain amount to an int."""
+    """Cleans up the list and sets daily rain amount to an int.
+
+    >>> remove_junk([['test', '1', '2', '3']])
+    [['test', 1]]
+    """
     temp_list = []
     for z in line_list:
         temp_list += [z[0:2]]
@@ -38,20 +42,32 @@ def remove_junk(line_list):
 
 
 def dict_dates(y):
-    """Creates a dict from the list."""
+    """Creates a dict from the list.
+
+    >>> dict_dates([['test', 1]])
+    {'test': 1}
+    """
     d = {key: value for (key, value) in y}
     d = {str(k): int(v) for k, v in d.items()}
     return d
 
 
 def most_rain(d):
-    """Returns the key for max of dict daily totals."""
+    """Returns the key for max of dict daily totals.
+
+    >>> most_rain({'test': 1})
+    'test'
+    """
     day_with_most_rain = max(d, key=d.get)
     return day_with_most_rain
 
 
 def create_year_list(temp_list2):
-    """Slices the list of dates into years"""
+    """Slices the list of dates into years
+
+    >>> create_year_list([['Dec1999', 'Party over! OOPS! out of time']])
+    [['1999', 'Party over! OOPS! out of time']]
+    """
     temp_list3 = []
     for date, rain in temp_list2:
         date_sliced = date[-4:]
@@ -60,7 +76,11 @@ def create_year_list(temp_list2):
 
 
 def create_year_dict(temp_list3):
-    """Creates a dict from year list and sums rain value."""
+    """Creates a dict from year list and sums rain value.
+
+    >>> create_year_dict([['1999', 1], ['1999', 2]])
+    {'1999': [3]}
+    """
     yearly_totals = {}
     for date_sliced, rain in temp_list3:
         if date_sliced not in yearly_totals:
@@ -71,7 +91,11 @@ def create_year_dict(temp_list3):
 
 
 def get_max_year(total_by_year):
-    """Returns year with max amount of rain."""
+    """Returns year with max amount of rain.
+
+    >>> get_max_year({'1999':200, '1998':100})
+    '1999'
+    """
     total_by_year_max = max(total_by_year, key=total_by_year.get)
     return total_by_year_max
 
