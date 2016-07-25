@@ -2,129 +2,135 @@
 year with most rain.
 """
 # setup:
-filename = 'sunnyside.txt'
+FILENAME = 'sunnyside.txt'
 
-
-def each_line_of_file(filename):
+def open_file_and_read_lines(filename):
     """Opens sunnyside.txt and reads it line by line."""
-    with open(filename, newline='') as f:
+    with open(FILENAME, newline='') as f:
         lines = f.readlines()
+    header_removed = lines[11:-1]
 
-    return lines
+    return header_removed
 
 
-def split_lines(lines):
-    r"""Strips and splits the lines into lists.
-
-    >>> split_lines(['1 \n', '2\n', '3\n', '4\n', '5\n', '6 \n', '7 \n', '8 \n', '9 \n', '10 \n', '11 \n', 'PARTY! \n', 'TIME!'])
-    [['PARTY!']]
+def parse_relevant_lines_into_date_amount(lines):
     """
-    listed_lines = [x.strip().split('\n') for x in lines]
-    listed_lines_reduced = listed_lines[11:-1]
-    line_list = []
-    for listed_lines_split in listed_lines_reduced:
-        line_list += [y.split() for y in listed_lines_split]
-
-    return line_list
-
-
-def remove_junk(line_list):
-    """Cleans up the list and sets daily rain amount to an int.
-
-    >>> remove_junk([['test', '1', '2', '3']])
-    [['test', 1]]
+    >>> parse_relevant_lines_into_date_amount(['01-JAN-9999 0 1 2 3 4', '02-JAN-9999 5 6 7 8 9', '03-JAN-9999 - - - - -'])
+    [('01-JAN-9999', 0), ('02-JAN-9999', 5)]
     """
-    temp_list = []
-    for z in line_list:
-        temp_list += [z[0:2]]
-    temp_list2 = []
-    for date, rain in temp_list:
-        if rain != '-':
-            int_rain = int(rain)
-            temp_list2 += [[date, int_rain]]
-    return temp_list2
+    return [parse_line_into_date_amount(line) for line in lines if should_process_input_line(line)] # L
 
 
-def dict_dates(y):
+def should_process_input_line(line): # keep this separated for now
+    """
+    >>> should_process_input_line('02-JAN-9999 5 6 7 8 9')
+    True
+    >>> should_process_input_line('03-JAN-9999 - - - - -')
+    False
+    """
+    return line.split()[1] != '-' # this one line can fo to where L is
+
+
+def parse_line_into_date_amount(line):
+    """
+    >>> parse_line_into_date_amount('01-JAN-9999 0 1 2 3 4')
+    ('01-JAN-9999', 0)
+    """
+    date_amount_tuple = tuple(line.split()[0:2])
+    date_amount_tuple_int = date_amount_tuple[0], int(date_amount_tuple[1])
+    return date_amount_tuple_int
+
+def create_dict_from_list_of_dates_and_rain(y):
     """Creates a dict from the list.
 
-    >>> dict_dates([['test', 1]])
-    {'test': 1}
+    >>> create_dict_from_list_of_dates_and_rain([('12-MAY-1999', 3)])
+    {'12-MAY-1999': 3}
     """
     d = {key: value for (key, value) in y}
-    d = {str(k): int(v) for k, v in d.items()}
     return d
 
 
-def most_rain(d):
+def most_rain(p):
     """Returns the key for max of dict daily totals.
 
-    >>> most_rain({'test': 1})
-    'test'
+    >>> most_rain([('10-DEC-1988', 1), ('14-JAN-1999', 10)])
+    '14-JAN-1999'
     """
-    day_with_most_rain = max(d, key=d.get)
+    dict_of_parsed_lines = create_dict_from_list_of_dates_and_rain(p)
+    day_with_most_rain = max(dict_of_parsed_lines, key=dict_of_parsed_lines.get)
     return day_with_most_rain
 
 
-def create_year_list(temp_list2):
+def get_year_from_date_amount(date_amount):
+    """
+    >>> get_year_from_date_amount(('10-DEC-1988', 1))
+    '1988'
+    """
+    year_key = date_amount[0][-4:]
+    return year_key
+
+
+def get_year_with_most_rain(parsed_lines):
+    """Returns year with max amount of rain.
+
+    >>> get_year_with_most_rain([('10-DEC-1988', 1), ('14-JAN-1999', 10), ('01-OCT-1988', 4), ('05-MAY-1999', 3)])
+    '1999'
+    """
+    total_by_year_list = create_year_list(parsed_lines)
+    total_by_year_dict = create_year_dict(total_by_year_list)
+
+    total_by_year_max = max(total_by_year_dict, key=total_by_year_dict.get)
+    return total_by_year_max
+
+
+def create_year_list(parsed_lines):
     """Slices the list of dates into years
 
-    >>> create_year_list([['Dec1999', 'Party over! OOPS! out of time']])
+    >>> create_year_list([['DEC-1999', 'Party over! OOPS! out of time']])
     [['1999', 'Party over! OOPS! out of time']]
     """
-    temp_list3 = []
-    for date, rain in temp_list2:
+    list_of_years_and_rainfall = []
+    for date, rain in parsed_lines:
         date_sliced = date[-4:]
-        temp_list3 += [[date_sliced, rain]]
-    return temp_list3
+        list_of_years_and_rainfall += [[date_sliced, rain]]
+    return list_of_years_and_rainfall
 
 
-def create_year_dict(temp_list3):
+def create_year_dict(list_of_year_and_rainfall):
     """Creates a dict from year list and sums rain value.
 
     >>> create_year_dict([['1999', 1], ['1999', 2]])
     {'1999': [3]}
     """
     yearly_totals = {}
-    for date_sliced, rain in temp_list3:
+    for date_sliced, rain in list_of_year_and_rainfall:
         if date_sliced not in yearly_totals:
             yearly_totals[date_sliced] = []
         yearly_totals[date_sliced] += [rain]
-        total_by_year = dict(zip(yearly_totals.keys(), [[sum(item)] for item in yearly_totals.values()]))
+    total_by_year = dict(zip(yearly_totals.keys(), [[sum(item)] for item in yearly_totals.values()]))
     return total_by_year
 
 
-def get_max_year(total_by_year):
-    """Returns year with max amount of rain.
-
-    >>> get_max_year({'1999':200, '1998':100})
-    '1999'
-    """
-    total_by_year_max = max(total_by_year, key=total_by_year.get)
-    return total_by_year_max
-
-
 def output(day_with_most_rain, total_by_year_max):
-    """Combines output strings for program."""
-    output_one = 'The date that had the most rain was: ' + str(day_with_most_rain)
-    output_two = str(total_by_year_max) + ' was the wettest year from this data sample.'
-    output_three = str(output_one) + '\n' + output_two
+    """Combines output strings for program.
+
+    >>> output('DEC_31-1999', '1922')
+    The date that had the most rain was: DEC_31-1999
+    1922 was the wettest year from this data sample.
+    """
+    output_one = 'The date that had the most rain was: ' + str.format(day_with_most_rain)
+    output_two = str.format(total_by_year_max) + ' was the wettest year from this data sample.'
+    output_three = output_one + '\n' + output_two
     print(output_three)
-    return output_three
 
 
 def main():
     """Handler to run the program."""
-    lines = each_line_of_file(filename)
-    lines_split = split_lines(lines)
-    final_list = remove_junk(lines_split)
-    dict_to_check = dict_dates(final_list)
-    rainy_day = most_rain(dict_to_check)
-    wet_year_list = create_year_list(final_list)
-    year_dict = create_year_dict(wet_year_list)
-    max_year = get_max_year(year_dict)
-    final_output = output(rainy_day, max_year)
-    return final_output
+    read_file = open_file_and_read_lines(FILENAME)
+    parsed_lines = parse_relevant_lines_into_date_amount(read_file)
+    day_with_most_rain = most_rain(parsed_lines)
+    year_with_most_rain = get_year_with_most_rain(parsed_lines)
+    output_day_and_year = output(day_with_most_rain, year_with_most_rain)
 
 if __name__ == '__main__':
     main()
