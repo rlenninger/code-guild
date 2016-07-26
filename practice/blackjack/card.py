@@ -8,7 +8,7 @@ class Card:
         self.rank = rank
 
     def __repr__(self):
-        """
+        """Returns repr.
 
         >>> Card('D', 'K')
         Card('D', 'K')
@@ -17,7 +17,7 @@ class Card:
         return 'Card({!r}, {!r})'.format(self.suit, self.rank)
 
     def __eq__(self, other):
-        """
+        """Checks to see if eq.
 
         >>> Card('D', 'K') == Card('D', 'K')
         True

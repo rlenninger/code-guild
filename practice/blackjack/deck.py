@@ -15,13 +15,13 @@ class Deck:
 
 
     def __repr__(self):
-        """"""
+        """Returns repr."""
 
         return 'Deck({!r})'.format(self.list_of_cards)
 
 
     def __eq__(self, other):
-        """
+        """Checks to see if eq.
 
         >>> (Deck([Card('S', 'A'), Card('D', 'J')])) == (Deck([Card('S', 'A'), Card('D', 'J')]))
         True
@@ -32,12 +32,12 @@ class Deck:
 
 
 def initialize_deck(suits, rank):
-        """Returns a sorted deck."""
-        deck = Deck([])
-        for suit in SUITS:
-            for rank in RANK:
-                deck.list_of_cards += [Card(suit, rank)]
-        return sorted(deck)
+    """Returns a sorted deck."""
+    deck = Deck([])
+    for suit in SUITS:
+        for rank in RANK:
+            deck.list_of_cards += [Card(suit, rank)]
+    return deck
 
 
 def shuffle_deck(deck):

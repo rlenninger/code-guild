@@ -12,10 +12,11 @@ class Hand:
         self.card_list = card_list
 
     def __repr__(self):
+        """Returns repr."""
         return 'Hand({!r})'.format(self.card_list)
 
     def __eq__(self, other):
-        """
+        """Checks to see if eq
 
        >>> Hand([Card('S', '2')]) == Hand([Card('D', '7')])
        False
@@ -49,14 +50,14 @@ def score_hand(hand):
     19
     """
     hand_value = 0
-    for card in hand.card_list:
+    for card in hand:
         if card.rank in FACE_CARDS:
             hand_value += 10
         elif card.rank in NUM_CARDS:
             hand_value += int(card.rank)
         else:
             hand_value += 1
-    for card in hand.card_list:
+    for card in hand:
         if card.rank == 'A' and hand_value <= 11:
             hand_value += 10
 
