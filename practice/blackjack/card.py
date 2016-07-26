@@ -1,5 +1,31 @@
 """Class for all cards as strings."""
 
-class Cards:
-    pass
+class Card:
+    """Class for cards."""
+
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+
+    def __repr__(self):
+        """
+
+        >>> Card('D', 'K')
+        Card('D', 'K')
+        """
+
+        return 'Card({!r}, {!r})'.format(self.suit, self.rank)
+
+    def __eq__(self, other):
+        """
+
+        >>> Card('D', 'K') == Card('D', 'K')
+        True
+        >>> Card('D', 'K') == Card('D', '7')
+        False
+        """
+
+        return self.suit == other.suit and self.rank == other.rank
+
+
 
